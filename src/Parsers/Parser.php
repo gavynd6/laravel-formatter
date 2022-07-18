@@ -37,6 +37,16 @@ abstract class Parser {
         return json_encode($this->toArray());
     }
 
+    public function toCollection() {
+        return collect($this->toArray());
+    }
+
+    public function toEloquent($model) {
+        if ( class_exists($model) ) {
+            
+        }
+    }
+
     /**
      * Return a yaml representation of the data stored in the parser
      *

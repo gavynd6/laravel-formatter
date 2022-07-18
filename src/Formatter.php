@@ -1,14 +1,17 @@
 <?php
 
-namespace SoapBox\Formatter;
+namespace Atroposmental\Formatter;
 
 use InvalidArgumentException;
 use Atroposmental\Formatter\Formatter as Formatter;
 use Atroposmental\Formatter\Parsers\ArrayParser;
+use Atroposmental\Formatter\Parsers\CollectionParser;
 use Atroposmental\Formatter\Parsers\CsvParser;
+use Atroposmental\Formatter\Parsers\EloquentParser;
 use Atroposmental\Formatter\Parsers\JsonParser;
 use Atroposmental\Formatter\Parsers\XmlParser;
-use Atroposmental\Formatter\Parsers\YamlParser;
+
+// use Atroposmental\Formatter\Parsers\YamlParser;
 
 class Formatter {
     /**
@@ -19,12 +22,16 @@ class Formatter {
     const XML  = 'xml';
     const ARR  = 'array';
     const YAML = 'yaml';
+    const COLL = 'collection';
+    const ELQNT = 'eloquent';
 
     private static $supportedTypes = [
         self::CSV,
         self::JSON,
         self::XML,
         self::ARR,
+        self::COLL,
+        self::ELQNT,
         // self::YAML
     ];
 
@@ -61,6 +68,14 @@ class Formatter {
                 case self::ARR:
                     $parser = new ArrayParser($data);
                     break;
+
+                case self::COLL:
+                    $parser = new CollectionParser($data);
+                    break;
+                
+                case self::ELQNT:
+                    $parser = new EloquentParser($data);
+                    break;
                 // case self::YAML:
                 //     $parser = new YamlParser($data);
                 //     break;
@@ -86,9 +101,13 @@ class Formatter {
         return $this->parser->toArray();
     }
 
-    // public function toYaml() {
-    //     return $this->parser->toYaml();
-    // }
+    public function toCollection() {
+        return $this->parser->toCollection();
+    }
+
+    public function toEloquent() {
+        return $this->parser->toEloquent();
+    }
 
     public function toXml($baseNode = 'xml', $encoding = 'utf-8', $formated = false) {
         return $this->parser->toXml($baseNode, $encoding, $formated);
@@ -97,4 +116,8 @@ class Formatter {
     public function toCsv($newline = "\n", $delimiter = ",", $enclosure = '"', $escape = "\\") {
         return $this->parser->toCsv($newline, $delimiter, $enclosure, $escape);
     }
+
+    // public function toYaml() {
+    //     return $this->parser->toYaml();
+    // }
 }

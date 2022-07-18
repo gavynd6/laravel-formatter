@@ -1,7 +1,9 @@
-<?php namespace SoapBox\Formatter\Parsers;
+<?php
+
+namespace Atroposmental\Formatter\Parsers;
 
 use InvalidArgumentException;
-use Spyc;
+// use Spyc;
 
 class YamlParser extends Parser {
 
@@ -9,7 +11,7 @@ class YamlParser extends Parser {
 
 	public function __construct($data) {
 		if (is_string($data)) {
-			$this->array = Spyc::YAMLLoadString($data);
+			// $this->array = Spyc::YAMLLoadString($data);
 		} else {
 			throw new InvalidArgumentException(
 				'YamlParser only accepts (string) [yaml] for $data.'
@@ -20,5 +22,4 @@ class YamlParser extends Parser {
 	public function toArray() {
 		return $this->array;
 	}
-
 }

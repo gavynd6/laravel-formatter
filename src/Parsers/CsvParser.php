@@ -10,10 +10,10 @@ class CsvParser extends Parser {
     private $csv;
 
     public function __construct($data, $delimiter = null) {
-        if (is_string($data)) {
+        if ( is_string($data) ) {
             $this->csv = Reader::createFromString($data);
 
-            if ($delimiter) {
+            if ( $delimiter ) {
                 $this->csv->setDelimiter($delimiter);
             }
 
@@ -31,7 +31,7 @@ class CsvParser extends Parser {
         $headings = $temp[0];
         $result   = $headings;
 
-        if (count($temp) > 1) {
+        if ( count($temp) > 1 ) {
             $result = [];
 
             for ($i = 1; $i < count($temp); ++$i) {
