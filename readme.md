@@ -25,7 +25,7 @@ Through composer.json:
 ```json
 {
   "require": {
-    "atroposmental/laravel-formatter": "2.x"
+    "atroposmental/laravel-formatter": "3.x"
   }
 }
 
