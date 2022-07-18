@@ -1,13 +1,14 @@
-<?php namespace SoapBox\Formatter;
+<?php
+
+namespace Atroposmental\Formatter;
 
 use Illuminate\Support\ServiceProvider;
-use SoapBox\Formatter\Formatter as Formatter;
+use Atroposmental\Formatter\Formatter as Formatter;
 
 /**
  * Used to register Authroize with service providers, mainly for Laravel.
  */
-class FormatterServiceProvider extends ServiceProvider
-{
+class FormatterServiceProvider extends ServiceProvider {
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -20,9 +21,8 @@ class FormatterServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
-        $this->package('soapbox/laravel-formatter');
+    public function boot() {
+        $this->package('atroposmental/laravel-formatter');
     }
 
     /**
@@ -30,8 +30,7 @@ class FormatterServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
+    public function register() {
         $this->app['formatter'] = $this->app->share(function ($app) {
             return new Formatter;
         });
@@ -42,8 +41,7 @@ class FormatterServiceProvider extends ServiceProvider
      *
      * @return array
      */
-    public function provides()
-    {
+    public function provides() {
         return ['formatter'];
     }
 }

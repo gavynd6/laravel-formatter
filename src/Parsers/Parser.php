@@ -12,8 +12,7 @@ use Atroposmental\Formatter\ArrayHelpers;
  * This interface describes the abilities of a parser which is able to transform
  * inputs to the object type.
  */
-abstract class Parser
-{
+abstract class Parser {
 
     /**
      * Constructor is used to initialize the parser
@@ -34,8 +33,7 @@ abstract class Parser
      *
      * @return string A json string representing the encapsulated data
      */
-    public function toJson()
-    {
+    public function toJson() {
         return json_encode($this->toArray());
     }
 
@@ -44,10 +42,10 @@ abstract class Parser
      *
      * @return string A yaml string representing the encapsulated data
      */
-//     public function toYaml()
-//     {
-//         return Spyc::YAMLDump($this->toArray());
-//     }
+    //     public function toYaml()
+    //     {
+    //         return Spyc::YAMLDump($this->toArray());
+    //     }
 
     /**
      * To XML conversion
@@ -58,8 +56,7 @@ abstract class Parser
      * @param  null|string $encoding
      * @return string
      */
-    private function xmlify($data, $structure = null, $basenode = 'xml', $encoding = 'utf-8', $formatted = false)
-    {
+    private function xmlify($data, $structure = null, $basenode = 'xml', $encoding = 'utf-8', $formatted = false) {
         // turn off compatibility mode as simple xml throws a wobbly if you don't.
         if (ini_get('zend.ze1_compatibility_mode') == 1) {
             ini_set('zend.ze1_compatibility_mode', 0);
@@ -138,18 +135,8 @@ abstract class Parser
      * @param  bool   $formatted
      * @return string An xml string representing the encapsulated data
      */
-    public function toXml($baseNode = 'xml', $encoding = 'utf-8', $formatted = false)
-    {
+    public function toXml($baseNode = 'xml', $encoding = 'utf-8', $formatted = false) {
         return $this->xmlify($this->toArray(), null, $baseNode, $encoding, $formatted);
-    }
-
-    private function csvify($data)
-    {
-        $results = [];
-        foreach ($data as $row) {
-            $results[] = array_values(ArrayHelpers::dot($row));
-        }
-        return $results;
     }
 
     /**
@@ -162,8 +149,7 @@ abstract class Parser
      *
      * @return string An csv string representing the encapsulated data
      */
-    public function toCsv($newline = "\n", $delimiter = ",", $enclosure = '"', $escape = "\\")
-    {
+    public function toCsv($newline = "\n", $delimiter = ",", $enclosure = '"', $escape = "\\") {
         $data = $this->toArray();
 
         if (ArrayHelpers::isAssociative($data) || !is_array($data[0])) {

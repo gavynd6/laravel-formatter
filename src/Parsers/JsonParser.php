@@ -1,18 +1,16 @@
-<?php namespace SoapBox\Formatter\Parsers;
+<?php
 
-class JsonParser extends Parser
-{
+namespace Atroposmental\Formatter\Parsers;
+
+class JsonParser extends Parser {
 
     private $json;
 
-    public function __construct($data)
-    {
+    public function __construct($data) {
         $this->json = json_decode(trim($data), true);
     }
 
-    public function toArray()
-    {
+    public function toArray() {
         return $this->json;
     }
-
 }

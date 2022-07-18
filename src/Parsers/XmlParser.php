@@ -1,7 +1,8 @@
-<?php namespace SoapBox\Formatter\Parsers;
+<?php
 
-class XmlParser extends Parser
-{
+namespace Atroposmental\Formatter\Parsers;
+
+class XmlParser extends Parser {
     private $xml;
 
     /**
@@ -11,11 +12,10 @@ class XmlParser extends Parser
      * @author  Daniel Berry <daniel@danielberry.me>
      * @license MIT License (see LICENSE.readme included in the bundle)
      */
-    private function objectify($value)
-    {
+    private function objectify($value) {
         $temp = is_string($value) ?
-        simplexml_load_string($value, 'SimpleXMLElement', LIBXML_NOCDATA) :
-        $value;
+            simplexml_load_string($value, 'SimpleXMLElement', LIBXML_NOCDATA) :
+            $value;
 
         $result = [];
 
@@ -32,13 +32,11 @@ class XmlParser extends Parser
         return $result;
     }
 
-    public function __construct($data)
-    {
+    public function __construct($data) {
         $this->xml = $this->objectify($data);
     }
 
-    public function toArray()
-    {
+    public function toArray() {
         return (array) $this->xml;
     }
 }

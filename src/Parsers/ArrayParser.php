@@ -1,14 +1,14 @@
-<?php namespace SoapBox\Formatter\Parsers;
+<?php
+
+namespace Atroposmental\Formatter\Parsers;
 
 use InvalidArgumentException;
 
-class ArrayParser extends Parser
-{
+class ArrayParser extends Parser {
 
     private $array;
 
-    public function __construct($data)
-    {
+    public function __construct($data) {
         if (is_string($data)) {
             $data = unserialize($data);
         }
@@ -22,8 +22,7 @@ class ArrayParser extends Parser
         }
     }
 
-    public function toArray()
-    {
+    public function toArray() {
         return $this->array;
     }
 }
