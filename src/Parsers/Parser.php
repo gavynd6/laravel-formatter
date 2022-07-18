@@ -1,8 +1,10 @@
-<?php namespace SoapBox\Formatter\Parsers;
+<?php
+
+namespace Atroposmental\Formatter\Parsers;
 
 use Illuminate\Support\Str;
-use SoapBox\Formatter\ArrayHelpers;
-use Spyc;
+use Atroposmental\Formatter\ArrayHelpers;
+// use Spyc;
 
 /**
  * Parser Interface
@@ -42,10 +44,10 @@ abstract class Parser
      *
      * @return string A yaml string representing the encapsulated data
      */
-    public function toYaml()
-    {
-        return Spyc::YAMLDump($this->toArray());
-    }
+//     public function toYaml()
+//     {
+//         return Spyc::YAMLDump($this->toArray());
+//     }
 
     /**
      * To XML conversion
