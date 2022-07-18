@@ -3,29 +3,30 @@
 namespace Atroposmental\Formatter\Parsers;
 
 use InvalidArgumentException;
-use Illuminate\Support\Collection;
 
 class CollectionParser extends Parser {
-    private $array;
+    public $type = \Atroposmental\Formatter\Formatter::COLL;
 
-    public function __construct($data) {
+    public function __construct(
+        protected $data
+    ) {
         if ( is_string($data) ) {
-            $data = unserialize($data);
+            if (! ($data = json_decode($data, true)) && json_last_error() == JSON_ERROR_SYNTAX ) {
+                $data = unserialize($data);
+            }
         }
 
         if ( is_a($data, \Illuminate\Support\Collection::class) ) {
-            $this->array = $data;
+            $this->data = $data;
         }
         else if ( is_array($data) || is_object($data) ) {
-            $this->array = collect($data);
+            $this->data = collect($data);
         } else {
-            throw new InvalidArgumentException(
-                'CollectionParser only accepts (optionally serialized) [object, array] for $data.'
-            );
+            throw new InvalidArgumentException('CollectionParser only accepts (optionally serialized) [object, array] for $data.');
         }
     }
 
     public function toArray() {
-        return $this->array->toArray();
+        return $this->data->toArray();
     }
 }

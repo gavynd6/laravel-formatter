@@ -3,30 +3,32 @@
 namespace Atroposmental\Formatter\Parsers;
 
 use InvalidArgumentException;
+
 use League\Csv\Reader;
 use Atroposmental\Formatter\ArrayHelpers;
 
 class CsvParser extends Parser {
-    private $csv;
+    public $type = \Atroposmental\Formatter\Formatter::CSV;
 
-    public function __construct($data, $delimiter = null) {
+    public function __construct(
+        protected $data,
+        protected bool $headers = false,
+        protected string $delimiter = ',',
+        protected string $enclosure = '"',
+        protected string $newline = "\n",
+        protected string $escape = "\\"
+    ) {
         if ( is_string($data) ) {
-            $this->csv = Reader::createFromString($data);
-
-            if ( $delimiter ) {
-                $this->csv->setDelimiter($delimiter);
-            }
-
-            $this->csv->setEnclosure('|');
+            $this->data = Reader::createFromString($data);
+            $this->data->setDelimiter($this->delimiter);
+            $this->data->setEnclosure($this->enclosure);
         } else {
-            throw new InvalidArgumentException(
-                'CsvParser only accepts (string) [csv] for $data.'
-            );
+            throw new InvalidArgumentException('CsvParser only accepts (string) [csv] for $data.');
         }
     }
 
     public function toArray() {
-        $temp = $this->csv->jsonSerialize();
+        $temp = $this->data->jsonSerialize();
 
         $headings = $temp[0];
         $result   = $headings;

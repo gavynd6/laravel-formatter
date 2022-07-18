@@ -162,7 +162,7 @@ abstract class Parser {
     public function toCsv($newline = "\n", $delimiter = ",", $enclosure = '"', $escape = "\\") {
         $data = $this->toArray();
 
-        if (ArrayHelpers::isAssociative($data) || !is_array($data[0])) {
+        if ( ArrayHelpers::isAssociative($data) || ! is_array($data[0]) ) {
             $data = [$data];
         }
 

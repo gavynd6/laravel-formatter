@@ -3,7 +3,7 @@
 namespace Atroposmental\Formatter;
 
 use InvalidArgumentException;
-use Atroposmental\Formatter\Formatter as Formatter;
+
 use Atroposmental\Formatter\Parsers\ArrayParser;
 use Atroposmental\Formatter\Parsers\CollectionParser;
 use Atroposmental\Formatter\Parsers\CsvParser;
@@ -11,12 +11,8 @@ use Atroposmental\Formatter\Parsers\EloquentParser;
 use Atroposmental\Formatter\Parsers\JsonParser;
 use Atroposmental\Formatter\Parsers\XmlParser;
 
-// use Atroposmental\Formatter\Parsers\YamlParser;
-
 class Formatter {
-    /**
-     * Add class constants that help define input format
-     */
+    //  Add class constants that help define input format
     const CSV  = 'csv';
     const JSON = 'json';
     const XML  = 'xml';
@@ -32,29 +28,31 @@ class Formatter {
         self::ARR,
         self::COLL,
         self::ELQNT,
-        // self::YAML
     ];
 
     /**
      * @var Parser
      */
-    private $parser;
+    protected $parser;
 
     /**
      * Make: Returns an instance of formatter initialized with data and type
      *
-     * @param  mixed       $data      The data that formatter should parse
-     * @param  string      $type      The type of data formatter is expected to parse
+     * @param  mixed       $data The data that formatter should parse
+     * @param  string      $type The type of data formatter is expected to parse
      * @param  string      $delimiter The delimitation of data formatter to csv
+     * @param  string      $enclosure The enclosure of data formatter to csv
+     * @param  string      $newline The newline of data formatter to csv
+     * @param  string      $escape The escape of data formatter to csv
      * @return Formatter
      */
-    public static function make($data, $type, $delimiter = null) {
-        if (in_array($type, self::$supportedTypes)) {
+    public static function make($data, $type, $headers = false, $delimiter = null, $enclosure = null, $newline = null, $escape = null) {
+        if ( in_array($type, self::$supportedTypes) ) {
             $parser = null;
 
             switch ($type) {
                 case self::CSV:
-                    $parser = new CsvParser($data, $delimiter);
+                    $parser = new CsvParser($data, $headers, $delimiter, $enclosure, $newline, $escape);
                     break;
 
                 case self::JSON:
@@ -76,17 +74,12 @@ class Formatter {
                 case self::ELQNT:
                     $parser = new EloquentParser($data);
                     break;
-                // case self::YAML:
-                //     $parser = new YamlParser($data);
-                //     break;
             }
 
             return new Formatter($parser, $type);
         }
 
-        throw new InvalidArgumentException(
-            'make function only accepts [csv, json, xml, array] for $type but ' . $type . ' was provided.'
-        );
+        throw new InvalidArgumentException('make function only accepts [csv, json, xml, array, collection, eloquent] for $type but ' . $type . ' was provided.');
     }
 
     private function __construct($parser) {

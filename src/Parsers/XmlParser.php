@@ -3,7 +3,13 @@
 namespace Atroposmental\Formatter\Parsers;
 
 class XmlParser extends Parser {
-    private $xml;
+    public $type = \Atroposmental\Formatter\Formatter::XML;
+
+    public function __construct(
+        protected $data
+    ) {
+        $this->data = $this->objectify($data);
+    }
 
     /**
      * Ported from laravel-formatter
@@ -12,7 +18,7 @@ class XmlParser extends Parser {
      * @author  Daniel Berry <daniel@danielberry.me>
      * @license MIT License (see LICENSE.readme included in the bundle)
      */
-    private function objectify($value) {
+    protected function objectify($value) {
         $temp = is_string($value) ?
             simplexml_load_string($value, 'SimpleXMLElement', LIBXML_NOCDATA) :
             $value;
@@ -32,11 +38,7 @@ class XmlParser extends Parser {
         return $result;
     }
 
-    public function __construct($data) {
-        $this->xml = $this->objectify($data);
-    }
-
     public function toArray() {
-        return (array) $this->xml;
+        return (array) $this->data;
     }
 }
