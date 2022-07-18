@@ -1,41 +1,35 @@
 {
-    "name": "soapbox/laravel-formatter",
+    "name": "atroposmental/laravel-formatter",
     "type": "library",
     "description": "A formatting library that converts data output between XML, CSV, JSON, TXT, YAML and a few others.",
     "keywords": ["laravel", "formatter", "data", "convert", "csv", "xml", "yaml"],
-    "homepage": "http://github.com/SoapBox/laravel-formatter",
+    "homepage": "http://github.com/atroposmental/laravel-formatter",
     "license": "MIT",
-    "version": "3.1.1",
+    "version": "3.5.1",
     "authors": [
         {
-            "name": "Graham McCarthy",
-            "email": "graham@soapboxhq.com",
-            "homepage": "http://grahammccarthy.com"
-        },
-        {
-            "name": "Jaspaul Bola",
-            "email": "jaspaul.b@gamil.com",
-            "homepage": "http://jaspaulbola.com"
+            "name": "Dustin Hansen",
+            "email": "dustin@atroposmental.com",
+            "homepage": "https://atroposmental.com"
         }
     ],
     "require": {
         "php": "^7.2",
         "league/csv": "~9.0",
-        "mustangostang/spyc": "~0.6",
-        "illuminate/support": "^6.0"
+        "illuminate/support": "^9.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~8.0"
     },
     "autoload": {
         "psr-4": {
-            "SoapBox\\Formatter\\": "src/"
+            "Atroposmental\\Formatter\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "aliases": {
-                "Formatter": "SoapBox\\Formatter"
+                "Formatter": "Atroposmental\\Formatter"
             }
         }
     },
